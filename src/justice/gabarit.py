@@ -240,14 +240,31 @@ def confrontation(
 </div>"""
 
 
-def mesure(rang: int, titre: str, corps: str, *, porte: str = "", cout: str = "") -> str:
+def mesure(
+    rang: int,
+    titre: str,
+    corps: str,
+    *,
+    porte: str = "",
+    cout: str = "",
+    objection: str = "",
+    reponse: str = "",
+) -> str:
     """Une mesure du programme : un rang, un intitulé, ce qu'elle change.
 
-    ``porte`` dit par quel véhicule elle se prend — loi organique, loi
-    ordinaire, décret, circulaire — et ``cout`` ce qu'elle pèse. Les deux sont
-    facultatifs dans la signature et obligatoires dans les faits : une mesure
-    dont on ne sait dire ni le véhicule ni le coût n'est pas une mesure, c'est
-    un souhait. Un test le vérifie.
+    ``porte`` dit par quel véhicule elle se prend — loi constitutionnelle, loi
+    organique, loi ordinaire, décret — et ``cout`` ce qu'elle pèse. Les deux
+    sont facultatifs dans la signature et obligatoires dans les faits : une
+    mesure dont on ne sait dire ni le véhicule ni le coût n'est pas une
+    mesure, c'est un souhait.
+
+    ``objection`` porte la meilleure objection sérieuse que nous connaissions
+    à la mesure, et ``reponse`` ce que nous y répondons. Elle est obligatoire
+    elle aussi, et pour la même raison : une mesure dont les auteurs ne savent
+    pas dire ce qu'on lui reprochera n'a pas été pensée jusqu'au bout. Les
+    écrire ici évite par surcroît qu'un adversaire ait le mérite de les
+    trouver. Trois tests vérifient que les vingt mesures portent les quatre
+    mentions.
     """
     rappel = ""
     if porte or cout:
@@ -257,9 +274,17 @@ def mesure(rang: int, titre: str, corps: str, *, porte: str = "", cout: str = ""
         if cout:
             morceaux.append(f"<span><b>Coût</b> {cout}</span>")
         rappel = '<p class="porte">' + "".join(morceaux) + "</p>"
+    contre = ""
+    if objection:
+        contre = (
+            '<details class="objection"><summary>' + icone("chevron-down")
+            + "<span>L'objection, et ce que nous y répondons</span></summary>"
+            f'<div class="dedans"><p class="contre">{objection}</p>'
+            f"<p>{reponse}</p></div></details>"
+        )
     return f"""<div class="mesure">
   <p class="rang">{rang:02d}</p>
-  <div class="corps"><h3>{titre}</h3>{corps}{rappel}</div>
+  <div class="corps"><h3>{titre}</h3>{corps}{contre}{rappel}</div>
 </div>"""
 
 

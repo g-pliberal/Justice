@@ -51,9 +51,12 @@ def corps() -> str:
                 "Autant de juges par habitant que la médiane européenne, en dix ans.",
                 "La France compte 11,1 juges professionnels pour 100 000 habitants"
                 " et 3,2 procureurs, contre 17,6 et 11,1 pour la médiane des États"
-                " du Conseil de l'Europe. Aucune réforme de procédure ne rattrape"
-                " un tel écart : il faut recruter, former, et le dire dans une loi"
-                " de programmation qui engage.",
+                " du Conseil de l'Europe. Ces comptages ne retiennent pas les juges"
+                " non professionnels — consulaires, prud'homaux — et les systèmes"
+                " ne répartissent pas les mêmes tâches entre le juge et le greffe :"
+                " l'écart est réel, son ampleur exacte se discute. Aucune réforme de"
+                " procédure ne le rattrape : il faut recruter, former, et le dire"
+                " dans une loi de programmation qui engage.",
             ),
             (
                 "12 mois",
@@ -74,7 +77,7 @@ def corps() -> str:
             (
                 "− 1 pour + 1",
                 "Aucune incrimination nouvelle sans en abroger une autre.",
-                "Plus de 10 000 infractions sont en vigueur, réparties dans des"
+                "Plus de 10 000 infractions seraient en vigueur, réparties dans des"
                 " dizaines de codes, et personne n'en tient le compte exact. Le"
                 " droit pénal doit redevenir l'exception qu'il n'aurait jamais dû"
                 " cesser d'être : un inventaire complet, puis une règle de"

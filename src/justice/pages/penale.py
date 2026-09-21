@@ -7,9 +7,9 @@ from ..gabarit import (
 
 TITRE = "Justice pénale"
 DESCRIPTION = (
-    "Plus de 10 000 infractions en vigueur, des dizaines de milliers de peines"
-    " prononcées et non exécutées : l'état du droit pénal français, et la"
-    " réforme libérale — punir moins de choses, et les punir sûrement."
+    "Plus de 10 000 infractions en vigueur, près d'une peine ferme sur dix"
+    " jamais exécutée : l'état du droit pénal français, et la réforme"
+    " libérale — punir moins de choses, et les punir sûrement."
 )
 
 
@@ -66,18 +66,34 @@ def corps() -> str:
         section(
             "L'exécution des peines",
             "".join([
-                fiches("peines_attente", "recidive", "cout_detention"),
+                fiches("execution_1an", "peines_perdues", "execution_5ans",
+                       "cout_detention"),
                 "<p>Une peine prononcée n'est pas une peine exécutée. Entre le"
                 " prononcé et la mise à exécution s'intercalent l'appel, la"
                 " signification, la convocation devant le juge de l'application des"
                 " peines, l'aménagement éventuel, puis l'exécution elle-même — une"
                 " chaîne où chaque maillon a ses délais propres et où le stock"
-                " s'accumule. La Cour des comptes et les rapporteurs budgétaires du"
-                " Parlement relèvent régulièrement " + valeur("peines_attente") + " de"
-                " peines d'emprisonnement ferme en attente.</p>",
-                "<p>Le ministère ne publie pas de série continue de ce stock. C'est"
-                " l'indicateur le plus important de la chaîne pénale, et c'est celui"
-                " qu'on ne trouve pas.</p>",
+                " s'accumule.</p>",
+                "<p>Le ministère publie des taux de mise à exécution :"
+                " " + valeur("execution_1an") + " des peines fermes sont exécutées"
+                " dans l'année, " + valeur("execution_5ans") + " au bout de cinq"
+                " ans. Passé ce délai le taux ne bouge plus, ce qui revient à dire"
+                " que " + valeur("peines_perdues") + " des peines d'emprisonnement"
+                " ferme prononcées en France ne seront jamais exécutées.</p>",
+                note(
+                    "<p><strong>Ce que l'on trouve, et ce que l'on ne trouve"
+                    " pas.</strong> Une version antérieure de cette page affirmait"
+                    " que le ministère ne publiait pas ces chiffres. C'était"
+                    " inexact : il les publie, dans les « Références statistiques"
+                    " Justice », et depuis longtemps. Ce qui manque est autre chose,"
+                    " et reste sérieux — il n'existe aucune série continue du"
+                    " <em>stock</em> de peines en attente à une date donnée, et les"
+                    " taux publiés reposent sur des définitions qui ne se recoupent"
+                    " pas d'une publication à l'autre. C'est pourquoi la mesure 11"
+                    " commence désormais par publier le stock, au lieu de promettre"
+                    " d'éteindre un nombre que nous serions incapables de citer.</p>",
+                    genre="vigilance",
+                ),
                 carte(
                     "<h3>Pourquoi la certitude bat la sévérité</h3>"
                     "<p>La littérature criminologique est constante sur ce point : ce"
@@ -126,8 +142,8 @@ def corps() -> str:
                     titre_aujourdhui="Des peines prononcées puis oubliées",
                     aujourdhui=(
                         "<ul>"
-                        "<li>Un stock de peines fermes non exécutées que l'État ne"
-                        " publie pas.</li>"
+                        "<li>Un stock de peines fermes en attente dont aucune"
+                        " série publique ne donne le niveau.</li>"
                         "<li>Des mois, parfois des années, entre le prononcé et"
                         " l'exécution.</li>"
                         "<li>Un effet dévastateur sur la confiance : la victime"
@@ -145,7 +161,7 @@ def corps() -> str:
                         "<li>Généralisation du bureau de l'exécution des peines : la"
                         " convocation est remise à l'issue de l'audience, pas des mois"
                         " plus tard par courrier.</li>"
-                        "<li>Plan d'extinction du stock existant en cinq ans, avec"
+                        "<li>Publication du stock, puis plan d'extinction avec"
                         " revue annuelle devant le Parlement.</li>"
                         "</ul>"
                     ),

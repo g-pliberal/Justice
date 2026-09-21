@@ -88,6 +88,28 @@
   .mesures > .mesure > .rang { font-size: 1.75rem; }
 }
 
+/* L'objection, et ce que nous y répondons.
+
+   Chaque mesure porte la meilleure objection que nous lui connaissions. Elle
+   est repliée parce qu'elle ne doit pas concurrencer la mesure à la lecture,
+   et elle est là parce qu'un programme dont les auteurs n'ont pas écrit ce
+   qu'on leur reprochera n'a pas été relu par quelqu'un qui n'y croit pas.
+   L'objection elle-même est en creux — retrait, filet d'or — pour qu'on voie
+   d'un coup d'œil où finit ce qu'on nous oppose et où commence la réponse. */
+.mesures > .mesure .objection { margin-top: 0.8rem; }
+.mesures > .mesure .objection > summary { font-size: 0.875rem; }
+.mesures > .mesure .objection > .dedans {
+  padding: 0.6rem 0 0.2rem 1.65rem; font-size: 0.9375rem;
+}
+.mesures > .mesure .objection > .dedans > p { margin: 0.5rem 0 0; }
+.mesures > .mesure .objection .contre {
+  margin: 0; padding-left: 0.9rem; border-left: 2px solid var(--or);
+  color: var(--texte-tres-doux); font-style: italic;
+}
+@media (max-width: 34rem) {
+  .mesures > .mesure .objection > .dedans { padding-left: 0.6rem; }
+}
+
 /* -- le chiffre sourcé ------------------------------------------------------
 
    Un chiffre affiché sans sa source est une opinion. Les fiches de la charte
@@ -150,3 +172,22 @@
   font-size: 0.75rem; font-weight: 700; letter-spacing: 0.14em;
   text-transform: uppercase; color: var(--texte-tres-doux);
 }
+
+
+/* -- l'inventaire des sources ------------------------------------------------
+
+   Chaque chiffre du site y paraît avec la publication exacte d'où il sort et la
+   date où nous l'y avons vérifié. Ceux que nous n'avons pas rouverts depuis
+   portent une marque : elle est volontairement visible, parce qu'une source
+   qu'on n'a pas relue est une source dont on ne répond plus tout à fait, et que
+   le lecteur a le droit de savoir lesquelles. */
+.badge.a-verifier {
+  color: var(--fond); background: var(--or);
+  border-color: transparent; font-weight: 700;
+}
+.gloses .document {
+  display: block; margin-top: 0.3rem;
+  font-size: 0.8125rem; color: var(--texte-tres-doux);
+}
+.gloses .document a { color: inherit; }
+.gloses .document a:hover { color: var(--or); }

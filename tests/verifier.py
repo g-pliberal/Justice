@@ -12,6 +12,7 @@ from __future__ import annotations
 import re
 import sys
 import unittest
+from datetime import date
 from html import escape
 from html.parser import HTMLParser
 from pathlib import Path
@@ -20,7 +21,8 @@ RACINE = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RACINE / "src"))
 
 from justice import gabarit, site  # noqa: E402
-from justice.chiffres import CHIFFRES, SOURCES  # noqa: E402
+from justice.chiffres import CHIFFRES, PEREMPTION_MOIS, SOURCES  # noqa: E402
+from justice.pages import programme  # noqa: E402
 
 #: Les balises qui n'ont pas de fermeture, et qu'un contrôle d'équilibre doit
 #: ignorer sous peine de croire le document cassé.
@@ -138,6 +140,44 @@ class Chiffres(unittest.TestCase):
                 self.assertGreater(len(chiffre.precision), 40,
                                    "la précision doit dire ce que le chiffre ne dit pas")
 
+    def test_chaque_chiffre_nomme_sa_publication(self):
+        """Renvoyer vers un portail n'est pas citer une source.
+
+        Un lecteur qui veut vérifier « plus de 10 000 incriminations » ne doit
+        pas atterrir sur une page d'accueil : il doit lire le titre de la
+        publication où le chiffre se trouve. C'est le défaut le plus banal des
+        sites de programme, et le plus facile à corriger.
+        """
+        for cle, chiffre in CHIFFRES.items():
+            with self.subTest(chiffre=cle):
+                self.assertGreater(
+                    len(chiffre.document), 25,
+                    "le document doit être nommé, pas l'organisme")
+                if chiffre.url:
+                    self.assertTrue(chiffre.url.startswith("https://"))
+
+    def test_aucune_verification_perimee(self):
+        """Un chiffre vérifié il y a deux ans n'est plus un chiffre vérifié.
+
+        Le test échoue lorsqu'une vérification dépasse la péremption : c'est
+        volontaire, et c'est le seul moyen connu pour qu'une campagne de
+        vérification ait lieu. Un chiffre jamais revérifié ne fait pas échouer
+        le test — il porte sur la page « Sources » une mention visible, ce qui
+        est un aveu et non un oubli.
+        """
+        limite = date.today()
+        for cle, chiffre in CHIFFRES.items():
+            if not chiffre.verifie:
+                continue
+            with self.subTest(chiffre=cle):
+                verifie = date.fromisoformat(chiffre.verifie_le)
+                self.assertLessEqual(verifie, limite,
+                                     "vérifié dans le futur")
+                mois = (limite.year - verifie.year) * 12 + limite.month - verifie.month
+                self.assertLessEqual(
+                    mois, PEREMPTION_MOIS,
+                    f"{cle} : vérifié il y a {mois} mois, à rouvrir à la source")
+
     def test_chaque_source_est_consultable(self):
         for cle, source in SOURCES.items():
             with self.subTest(source=cle):
@@ -186,6 +226,44 @@ class Programme(unittest.TestCase):
     def test_numerotation_continue(self):
         rangs = re.findall(r'<p class="rang">(\d\d)</p>', self.page)
         self.assertEqual(rangs, [f"{n:02d}" for n in range(1, 21)])
+
+    def test_chaque_mesure_porte_son_objection(self):
+        """Une mesure dont on n'a pas écrit ce qu'on lui reprochera est une
+        mesure qui n'a pas été relue par quelqu'un qui n'y croit pas."""
+        self.assertEqual(self.page.count('class="objection"'), 20)
+
+    def test_chaque_mesure_declare_son_cout(self):
+        self.assertEqual(sorted(programme.COUTS), list(range(1, 21)))
+        for rang, cout in programme.COUTS.items():
+            with self.subTest(mesure=rang):
+                self.assertTrue(cout.libelle, "coût sans libellé")
+                self.assertGreaterEqual(cout.recurrent, 0)
+
+    def test_chaque_mesure_est_affectee_a_un_poste_et_un_seul(self):
+        """Ce qui rend le chiffrage vérifiable plutôt que déclaratif.
+
+        Le tableau de fin de page est la somme des mesures : si l'une d'elles
+        n'est affectée à aucun poste, ou à deux, le total cesse d'être cette
+        somme. C'est exactement l'erreur que portait la première version de
+        cette page, dont les mesures additionnées dépassaient de près d'un
+        milliard le total annoncé.
+        """
+        affectes = [rang for _, _, rangs in programme.POSTES for rang in rangs]
+        self.assertEqual(sorted(affectes), list(range(1, 21)),
+                         "une mesure manque ou compte deux fois")
+
+    def test_le_total_affiche_est_la_somme_des_postes(self):
+        somme = sum(programme.total_poste(rangs)
+                    for _, _, rangs in programme.POSTES)
+        self.assertEqual(somme, programme.total_recurrent())
+        attendu = f"{programme.total_recurrent() / 1000:.1f}".replace(".", ",")
+        self.assertIn(f"<strong>{attendu} Md€</strong>", self.page)
+
+    def test_les_couts_annonces_paraissent_sous_les_mesures(self):
+        """Le libellé lu par un humain doit être celui que compte la machine."""
+        for rang, cout in programme.COUTS.items():
+            with self.subTest(mesure=rang):
+                self.assertIn(cout.libelle, self.page)
 
 
 class Publication(unittest.TestCase):

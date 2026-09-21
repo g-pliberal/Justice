@@ -18,21 +18,40 @@ Le site est en ligne à la racine de ce dépôt, servi par GitHub Pages :
 | `prison.html` | Surpopulation, coût, récidive, et ce que nous proposons |
 | `civile.html` | Délais civils et prud'homaux, justice économique, petits litiges |
 | `libertes.html` | Statut du parquet, garanties avant jugement, surveillance |
-| `programme.html` | Les vingt mesures, leur véhicule juridique, leur coût, et le chiffrage d'ensemble |
+| `programme.html` | Les vingt mesures, leur véhicule juridique, leur coût, leur objection, le chiffrage d'ensemble et ce que le programme ne dit pas |
 | `sources.html` | Tous les chiffres du site, leur source, leur année, et les limites de l'exercice |
 
-## Deux principes de fabrication
+## Quatre principes de fabrication
 
-**Aucun chiffre sans source.** Les nombres ne sont pas écrits dans le texte :
-ils sont déclarés dans `src/justice/chiffres.py` avec l'organisme qui les
-publie, l'année à laquelle ils se rapportent et ce qu'ils ne disent pas. La
-page « Sources » se construit à partir de cette déclaration, et un test refuse
-un chiffre orphelin de source — comme un chiffre déclaré et cité nulle part.
+**Aucun chiffre sans source — ni sans publication, ni sans date.** Les nombres
+ne sont pas écrits dans le texte : ils sont déclarés dans
+`src/justice/chiffres.py` avec l'organisme qui les publie, **le titre exact de
+la publication** où ils se trouvent, l'année à laquelle ils se rapportent, la
+date à laquelle nous les y avons vérifiés, et ce qu'ils ne disent pas.
+Renvoyer vers la page d'accueil d'un ministère n'est pas citer une source.
+Un test refuse un chiffre orphelin de source ou de publication, comme un
+chiffre déclaré et cité nulle part ; un autre échoue dès qu'une vérification
+dépasse dix-huit mois. Les chiffres que nous n'avons pas rouverts depuis la
+dernière campagne portent sur la page « Sources » une mention « à revérifier »,
+visible du lecteur.
 
-**Aucune mesure sans véhicule ni coût.** Chacune des vingt mesures du programme
-porte le texte par lequel elle se prend — loi constitutionnelle, loi organique,
-loi ordinaire, décret — et son ordre de grandeur budgétaire. Un test vérifie
-que les vingt les portent.
+**Aucune mesure sans véhicule, sans coût ni objection.** Chacune des vingt
+mesures du programme porte le texte par lequel elle se prend — loi
+constitutionnelle, loi organique, loi ordinaire, décret —, son ordre de
+grandeur budgétaire, **la meilleure objection que nous lui connaissions** et ce
+que nous y répondons. Un test vérifie que les vingt portent les quatre
+mentions. Écrire l'objection soi-même évite qu'un adversaire ait le mérite de
+la trouver, et oblige à la regarder en face.
+
+**Le chiffrage est calculé, pas déclaré.** Chaque mesure déclare son coût en
+millions d'euros par an ; le tableau de chiffrage est la somme de ces
+déclarations, calculée à la construction de la page, et chaque mesure est
+affectée à un poste et à un seul. Un test le vérifie. Il n'est donc pas
+possible d'annoncer un total qui ne soit pas la somme de ce qu'on a promis.
+
+**Ce que le programme ne dit pas est écrit dedans.** La page du programme se
+termine par la liste des sujets qu'il ne traite pas. Un programme se juge
+autant à ses absences qu'à ses mesures, et mieux vaut les écrire soi-même.
 
 ## Fabriquer le site
 
