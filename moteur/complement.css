@@ -1,0 +1,152 @@
+/* Ce que ce site-ci ajoute à la charte, et rien d'autre. `style.css` est la
+   copie conforme de la feuille du site frère : tout ce qu'on y ajouterait
+   serait perdu au prochain alignement de charte. Les composants ci-dessous
+   n'existent que pour un site qui confronte un état des lieux à une
+   proposition, ce que l'autre n'a pas à faire. Ils n'introduisent aucune
+   couleur nouvelle : uniquement les variables déjà posées par la charte. */
+
+/* -- la confrontation -------------------------------------------------------
+
+   Le geste central du site : à gauche ce que la France fait aujourd'hui, à
+   droite ce que nous proposons. Deux colonnes de même poids — la critique n'a
+   pas plus de place que la réponse —, qui se mettent l'une sous l'autre quand
+   l'écran manque. L'ordre de lecture est alors « aujourd'hui » puis
+   « demain », c'est-à-dire celui du HTML : la colonne de droite n'est pas
+   posée par le style, elle est écrite en second. */
+.confrontation {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(21rem, 100%), 1fr));
+  gap: clamp(1.25rem, 3vw, 2rem);
+  margin: 2rem 0;
+  /* Les deux volets prennent la hauteur de la rangée. À hauteur libre, le
+     volet le plus court laissait sous lui un rectangle vide que son filet de
+     tête ne fermait pas, et la comparaison se lisait comme deux blocs sans
+     rapport plutôt que comme les deux moitiés d'une même phrase. */
+  align-items: stretch;
+}
+/* Chaque volet est une carte, avec un filet de tête qui dit lequel on lit
+   SANS le secours de la couleur seule : l'intitulé est écrit en toutes
+   lettres au-dessus, et c'est lui qui porte l'information. */
+.confrontation > .volet {
+  background: var(--fond-carte); border: 1px solid var(--trait);
+  border-top: 4px solid var(--trait-champ);
+  padding: 1.25rem 1.4rem 1.4rem; margin: 0;
+  display: flex; flex-direction: column;
+}
+.confrontation > .volet.demain { border-top-color: var(--or); }
+.confrontation > .volet > .etiquette {
+  font-size: 0.75rem; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--texte-tres-doux);
+  margin: 0 0 0.75rem;
+}
+.confrontation > .volet.demain > .etiquette { color: var(--or); }
+/* Le titre d'un volet : en serif, parce qu'il énonce et n'assène pas — les
+   capitales massives sont réservées aux titres de page et de section. */
+.confrontation > .volet > h3 {
+  font-family: "Instrument Serif", Georgia, "Times New Roman", serif;
+  font-weight: 400; font-size: 1.5rem; line-height: 1.15;
+  letter-spacing: 0; margin: 0 0 0.6rem; color: var(--texte);
+}
+.confrontation > .volet > :last-child { margin-bottom: 0; }
+.confrontation > .volet p { max-width: none; }
+.confrontation > .volet ul { margin: 0.6rem 0 0; padding-left: 1.2rem; }
+.confrontation > .volet li { margin: 0.35rem 0; }
+
+/* -- les mesures ------------------------------------------------------------
+
+   Le programme, mesure par mesure. Chaque mesure porte un rang, un intitulé et
+   ce qu'elle change ; le rang est gros parce qu'il sert à se dire « la 12 »
+   dans une réunion, et que c'est à cela qu'une numérotation sert. La grille ne
+   passe jamais à trois colonnes : une mesure se lit en entier, et trois
+   colonnes coupent ses phrases en deux mots. */
+.mesures { display: grid; gap: 0; margin: 1.5rem 0 0; }
+.mesures > .mesure {
+  display: grid; grid-template-columns: 3.5rem 1fr; gap: 0 1.25rem;
+  padding: 1.4rem 0; border-top: 1px solid var(--trait);
+  align-items: start;
+}
+.mesures > .mesure:last-child { border-bottom: 1px solid var(--trait); }
+.mesures > .mesure > .rang {
+  font-size: 2.25rem; line-height: 0.85; font-weight: 900;
+  letter-spacing: -0.05em; color: var(--or); font-variant-numeric: tabular-nums;
+}
+.mesures > .mesure > .corps > h3 { margin: 0 0 0.35rem; font-size: 1.1875rem; }
+.mesures > .mesure > .corps > p { margin: 0.35rem 0 0; color: var(--texte-doux); }
+/* Ce que la mesure coûte ou rapporte, et sous quelle autorité elle se prend :
+   une ligne de rappel, en petit, sous le texte. Elle est là pour qu'aucune
+   mesure ne puisse être écrite sans qu'on ait à répondre « par quel texte ? ». */
+.mesures > .mesure .porte {
+  margin-top: 0.6rem; font-size: 0.875rem; color: var(--texte-tres-doux);
+  display: flex; flex-wrap: wrap; gap: 0.35rem 1.1rem;
+}
+.mesures > .mesure .porte > span { display: inline-flex; gap: 0.35rem; }
+.mesures > .mesure .porte b {
+  color: var(--texte-doux); font-weight: 700;
+}
+@media (max-width: 34rem) {
+  .mesures > .mesure { grid-template-columns: 1fr; gap: 0.5rem; }
+  .mesures > .mesure > .rang { font-size: 1.75rem; }
+}
+
+/* -- le chiffre sourcé ------------------------------------------------------
+
+   Un chiffre affiché sans sa source est une opinion. Les fiches de la charte
+   portent déjà une valeur, une étiquette et une précision ; ici la précision
+   contient un lien vers la source, et ce lien doit rester lisible sur le fond
+   de carte — d'où la couleur d'accent plutôt que le gris des légendes. */
+.fiche .precision a { color: var(--accent); }
+/* La source sous un tableau ou un bloc : même voix que `.discret`, mais
+   détachée du texte courant par un filet, parce qu'elle vaut pour tout ce qui
+   la précède et non pour le paragraphe juste au-dessus. */
+.source {
+  margin: 0.75rem 0 0; padding-top: 0.6rem;
+  border-top: 1px solid var(--trait);
+  font-size: 0.85rem; color: var(--texte-tres-doux); max-width: none;
+}
+.source a { color: var(--accent); }
+
+/* -- la barre de comparaison ------------------------------------------------
+
+   Une comparaison à deux ou trois termes — la France, la médiane européenne,
+   l'Allemagne — ne mérite pas un graphique : elle mérite une barre par terme,
+   dessinée en CSS, lue dans l'ordre du HTML. Pas de SVG, pas de script, et la
+   valeur est écrite en toutes lettres à côté : la barre est un confort, jamais
+   le seul porteur de l'information (WCAG 1.4.1). */
+.barres { list-style: none; margin: 1.25rem 0; padding: 0; display: grid;
+          gap: 0.9rem; max-width: 46rem; }
+.barres > li { display: grid; grid-template-columns: minmax(7rem, 12rem) 1fr;
+               gap: 0.35rem 1rem; align-items: center; }
+.barres .nom { font-size: 0.95rem; color: var(--texte-doux); }
+/* La colonne des valeurs est de largeur FIXE, et non `auto` : à largeur
+   automatique, « environ 25 » poussait sa barre trente points plus loin que
+   celle de « 11,1 », et deux barres qui ne partent pas du même bord ne se
+   comparent plus — c'est tout ce qu'on leur demande. */
+.barres .piste {
+  display: grid; grid-template-columns: 6.5rem 1fr; gap: 0.75rem; align-items: center;
+}
+.barres .trait {
+  height: 0.85rem; background: var(--trait-champ); min-width: 2px;
+  border-radius: 0;
+}
+.barres > li.visee .trait { background: var(--or); }
+.barres > li.visee .nom { color: var(--texte); font-weight: 700; }
+.barres .valeur {
+  font-variant-numeric: tabular-nums; font-weight: 700; font-size: 0.95rem;
+  white-space: nowrap; text-align: right;
+}
+@media (max-width: 34rem) {
+  .barres > li { grid-template-columns: 1fr; }
+}
+
+/* -- le fil du site ---------------------------------------------------------
+
+   Le lien de bas de page vers la suite : une page qui se termine doit dire
+   laquelle vient après, sinon la seule issue est la barre d'onglets. */
+.suite {
+  margin: 3rem 0 0; padding-top: 1.5rem; border-top: 1px solid var(--trait);
+  display: flex; flex-wrap: wrap; gap: 0.75rem 1.5rem; align-items: baseline;
+}
+.suite > .etiquette {
+  font-size: 0.75rem; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--texte-tres-doux);
+}
