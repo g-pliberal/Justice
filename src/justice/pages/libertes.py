@@ -127,6 +127,18 @@ def corps() -> str:
                 " relative aux Jeux olympiques et paralympiques de 2024 puis"
                 " prolongée. Chacune de ces mesures a été présentée comme temporaire,"
                 " exceptionnelle et strictement encadrée.</p>",
+                "<p>Le dernier en date est la loi n° 2025-532 du 13 juin 2025"
+                " visant à sortir la France du piège du narcotrafic : elle crée un"
+                " parquet national anticriminalité organisée, un régime de détention"
+                " renforcé, et le « dossier coffre » — la faculté de ne pas verser"
+                " au dossier de la procédure certains éléments relatifs aux"
+                " techniques spéciales d'enquête. Le Conseil constitutionnel, par sa"
+                " décision n° 2025-885 DC du 12 juin 2025, a censuré six articles et"
+                " assorti le dossier coffre de réserves, dont celle qu'aucune"
+                " condamnation ne peut reposer sur ses seuls éléments. Nous n'avons"
+                " pas encore arrêté de position sur ce texte, et nous le disons"
+                " plutôt que de le passer sous silence : la page du programme le"
+                " range parmi ses absences.</p>",
                 "<p>C'est le point où le libéralisme se distingue le plus nettement"
                 " des autres familles politiques : nous ne jugeons pas ces"
                 " dispositifs sur l'intention de ceux qui les demandent, mais sur ce"

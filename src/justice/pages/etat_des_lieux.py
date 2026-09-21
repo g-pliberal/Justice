@@ -24,10 +24,11 @@ def corps() -> str:
         affiche(
             "Le constat",
             "Une institution pauvre, lente, et dont la loi change tous les deux ans",
-            "La justice française coûte <strong class=\"cle-texte\">environ 0,35 %"
-            " du PIB</strong>, emploie deux fois moins de juges par habitant que la"
-            " médiane européenne et six fois moins de procureurs. Voici ce que les"
-            " sources publiques permettent d'établir, avant toute opinion.",
+            "La justice française coûte " + valeur("part_pib") + " du produit"
+            " intérieur brut, emploie deux fois moins de juges par habitant que la"
+            " médiane européenne et près de quatre fois moins de procureurs. Voici"
+            " ce que les sources publiques permettent d'établir, avant toute"
+            " opinion.",
         ),
 
         note(
@@ -57,13 +58,29 @@ def corps() -> str:
                 " protection judiciaire de la jeunesse. La loi de programmation du"
                 " 20 novembre 2023 prévoit de le porter à " + valeur("budget_cible")
                 + " en 2027, avec " + valeur("recrutements") + " et 1 800 greffiers"
-                " recrutés sur la période.</p>",
-                "<p>Deux réserves s'imposent sur cette trajectoire. D'abord, une"
-                " promesse de recrutement n'est pas une promesse d'effectifs : les"
-                " départs en retraite et les démissions s'en déduisent. Ensuite, un"
-                " magistrat recruté aujourd'hui juge dans trois ans — le délai de"
-                " formation à l'École nationale de la magistrature est incompressible,"
-                " et aucune loi de finances ne le raccourcit.</p>",
+                " recrutés sur la période. Sur les crédits, la trajectoire est à peu"
+                " près tenue.</p>",
+                note(
+                    "<p><strong>Un mot sur le périmètre, parce qu'il décide de"
+                    " tout.</strong> Les montants cités ici s'entendent"
+                    " <em>hors</em> contribution au compte d'affectation spéciale"
+                    " « Pensions ». Pensions comprises, la même mission pèse"
+                    " 13,1 Md€ — soit près de 2,5 Md€ de plus pour exactement la"
+                    " même justice. Les deux chiffres sont exacts ; les confondre"
+                    " est la manière la plus simple de faire dire à un budget ce"
+                    " qu'on veut. La part de PIB ci-dessus rapporte le budget hors"
+                    " pensions au produit intérieur brut de la France, soit"
+                    " " + valeur("pib") + " en 2025.</p>",
+                    genre="vigilance",
+                ),
+                "<p>Deux réserves s'imposent en revanche sur les effectifs. D'abord,"
+                " une promesse de recrutement n'est pas une promesse d'effectifs :"
+                " les départs en retraite et les démissions s'en déduisent, et le"
+                " budget 2026 crée 286 emplois de magistrat pour une cible qui en"
+                " suppose trois cents par an. Ensuite, un magistrat recruté"
+                " aujourd'hui juge dans trois ans — le délai de formation à l'École"
+                " nationale de la magistrature est incompressible, et aucune loi de"
+                " finances ne le raccourcit.</p>",
             ]),
             ancre="moyens",
         ),
@@ -139,12 +156,12 @@ def corps() -> str:
         section(
             "Ce que la loi a fait depuis 2019",
             "".join([
-                "<p>Cinq textes structurent la justice telle qu'elle fonctionne"
-                " aujourd'hui. Les citer ensemble montre la cadence : trois réformes"
-                " d'organisation en six ans, chacune avant que la précédente ait pu"
-                " être évaluée.</p>",
+                "<p>Six textes structurent la justice telle qu'elle fonctionne"
+                " aujourd'hui. Les citer ensemble montre la cadence : quatre"
+                " réformes en sept ans, chacune avant que la précédente ait pu être"
+                " évaluée.</p>",
                 encadre(
-                    "<h3>Les cinq textes qui font le droit en vigueur</h3>"
+                    "<h3>Les six textes qui font le droit en vigueur</h3>"
                     "<dl class=\"gloses\">"
                     "<dt>Loi n° 2019-222 du 23 mars 2019, de programmation 2018-2022"
                     " et de réforme pour la justice</dt>"
@@ -177,6 +194,17 @@ def corps() -> str:
                     " recrutement des magistrats, création à titre expérimental des"
                     " tribunaux des activités économiques, simplification de la"
                     " procédure civile.</dd>"
+                    "<dt>Loi n° 2025-532 du 13 juin 2025 visant à sortir la France"
+                    " du piège du narcotrafic</dt>"
+                    "<dd>Création d'un parquet national anticriminalité organisée,"
+                    " d'un régime de détention renforcé, et du « dossier coffre » —"
+                    " la possibilité de ne pas verser au dossier de la procédure"
+                    " certains éléments relatifs aux techniques spéciales d'enquête."
+                    " Le Conseil constitutionnel, par sa décision n° 2025-885 DC du"
+                    " 12 juin 2025, a censuré six articles et assorti le dossier"
+                    " coffre de réserves, dont celle qu'aucune condamnation ne peut"
+                    " reposer sur les seuls éléments qu'il contient. C'est le texte"
+                    " pénal le plus important depuis 2019.</dd>"
                     "</dl>"
                 ),
                 "<p>S'y ajoute ce qui ne passe pas par la loi : la politique pénale"
@@ -191,7 +219,7 @@ def corps() -> str:
         section(
             "La confiance",
             "".join([
-                fiches("confiance", "recidive", "reponse_penale",
+                fiches("confiance", "recidive_1an", "reponse_penale",
                        "classement_auteur"),
                 "<p>Ces quatre chiffres se lisent ensemble. Près de neuf affaires"
                 " poursuivables sur dix reçoivent une réponse pénale — le taux est"
@@ -200,12 +228,25 @@ def corps() -> str:
                 " déposées. Pour la victime d'un cambriolage dont l'auteur n'a jamais"
                 " été retrouvé, un taux de réponse pénale de 90 % décrit un monde"
                 " qu'elle ne reconnaît pas.</p>",
-                "<p>Quant à la récidive, l'étude de référence — "
-                + valeur("recidive") + " de recondamnation dans les cinq ans après"
-                " une sortie de prison — date de 2011 et n'a pas été reconduite sur"
-                " une cohorte plus récente. Une politique publique qui ne mesure plus"
-                " son principal indicateur de résultat ne peut ni se corriger ni se"
-                " défendre.</p>",
+                "<p>Quant à la récidive, elle est mesurée, et publiée chaque"
+                " année : " + valeur("recidive_1an") + " des personnes sorties de"
+                " prison en 2020 ont été condamnées à nouveau pour une infraction"
+                " commise dans l'année, et la série remonte aux sortants de 2016."
+                " Ce qui manque est ailleurs — le suivi <strong>à cinq ans</strong>."
+                " Le seul dont la France dispose, " + valeur("recidive") + " de"
+                " recondamnation, porte sur les personnes libérées en 2002 et a été"
+                " publié en 2011. Il n'a jamais été reconduit.</p>",
+                note(
+                    "<p><strong>Correction.</strong> Une version antérieure de cette"
+                    " page affirmait que la récidive n'était plus mesurée depuis"
+                    " 2011. C'était faux : le service statistique du ministère"
+                    " publie une série annuelle à un an, la dernière en avril 2025."
+                    " Nous l'avons corrigée ici et sur la page du programme, et la"
+                    " mesure qui en découlait a changé d'objet : il s'agit"
+                    " d'étendre une série existante, non de la créer. Nous laissons"
+                    " la trace de l'erreur plutôt que de la faire disparaître.</p>",
+                    genre="vigilance",
+                ),
             ]),
             ancre="confiance",
         ),

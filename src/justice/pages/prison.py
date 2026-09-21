@@ -1,15 +1,15 @@
 """La prison : la surpopulation, son coût, et ce qu'on y fait des gens."""
 
-from ..chiffres import fiches, valeur
+from ..chiffres import CHIFFRES, fiches, valeur
 from ..gabarit import (
     affiche, carte, confrontation, encadre, note, plan, section, suite,
 )
 
 TITRE = "Prison et peines"
 DESCRIPTION = (
-    "Plus de 80 000 détenus pour 62 000 places, une condamnation européenne"
-    " depuis 2020, 120 € par jour et par personne : l'état des prisons"
-    " françaises et la réforme que nous proposons."
+    "Plus de 86 000 détenus pour 63 000 places, une condamnation européenne"
+    " restée sans effet depuis 2020, 120 € par jour et par personne : l'état"
+    " des prisons françaises et la réforme que nous proposons."
 )
 
 
@@ -35,13 +35,14 @@ def corps() -> str:
             "La surpopulation",
             "".join([
                 fiches("detenus", "places", "densite", "matelas"),
-                "<p>La densité carcérale globale dépasse 130 %, mais la moyenne"
+                "<p>La densité carcérale globale approche 137 %, mais la moyenne"
                 " trompe : les centres de détention et les maisons centrales, qui"
                 " accueillent les longues peines, fonctionnent en cellule"
                 " individuelle. La surpopulation est concentrée dans les maisons"
                 " d'arrêt, où sont détenus les prévenus — présumés innocents — et les"
-                " condamnés à de courtes peines. C'est là que la densité dépasse"
-                " 150 %, et là que des personnes dorment au sol.</p>",
+                " condamnés à de courtes peines. C'est là que la densité atteint"
+                " " + valeur("densite_maison_arret") + ", et là que des personnes"
+                " dorment au sol. Vingt-cinq établissements dépassent 200 %.</p>",
                 note(
                     "<p>Le " + valeur("cedh") + ", dans l'arrêt <em>J.M.B. et autres"
                     " c. France</em>, la Cour européenne des droits de l'homme a jugé"
@@ -49,8 +50,9 @@ def corps() -> str:
                     " français violaient l'article 3 de la Convention — l'interdiction"
                     " des traitements inhumains ou dégradants — et a demandé à la"
                     " France d'adopter des mesures générales pour résorber la"
-                    " surpopulation. Cinq ans plus tard, le nombre de détenus a"
-                    " augmenté.</p>",
+                    " surpopulation. Six ans plus tard, le nombre de personnes"
+                    " détenues a augmenté de plus de 15 %, et chaque mois bat le"
+                    " record du précédent.</p>",
                     genre="avertissement",
                 ),
                 carte(
@@ -70,12 +72,14 @@ def corps() -> str:
         section(
             "Ce que cela coûte",
             "".join([
-                fiches("cout_detention", "recidive"),
+                fiches("cout_detention", "cout_place", "recidive_1an",
+                       "places_livrees"),
                 "<p>Une journée de détention coûte à la collectivité "
                 + valeur("cout_detention") + " par personne, soit plus de 40 000 €"
                 " par an — davantage qu'une année d'études supérieures, davantage que"
-                " le salaire médian. Et " + valeur("recidive") + " des sortants sont"
-                " recondamnés dans les cinq ans.</p>"
+                " le salaire médian. Et " + valeur("recidive_1an") + " des"
+                " sortants sont recondamnés dans l'année qui suit leur"
+                " libération.</p>"
                 "<p>Ces deux nombres, côte à côte, définissent le problème. La prison"
                 " est le plus coûteux des services publics par usager, et celui dont"
                 " le taux d'échec est le mieux connu et le moins discuté. Le"
@@ -97,8 +101,9 @@ def corps() -> str:
                     titre_aujourdhui="Une capacité qui court après les entrées",
                     aujourdhui=(
                         "<ul>"
-                        "<li>Des programmes de construction annoncés par milliers de"
-                        " places, livrés avec des années de retard.</li>"
+                        "<li>Un « plan 15 000 » lancé en 2017 pour 2027 :"
+                        " " + CHIFFRES["places_livrees"].valeur + " places livrées,"
+                        " coût réévalué de 46 %, achèvement repoussé à 2031.</li>"
                         "<li>Aucune conséquence juridique lorsqu'un établissement"
                         " dépasse sa capacité.</li>"
                         "<li>Des courtes peines exécutées en maison d'arrêt surpeuplée,"
@@ -115,10 +120,12 @@ def corps() -> str:
                         " aménageables : l'État choisit qui il libère selon des"
                         " critères de dangerosité, plutôt que de laisser la"
                         " surpopulation choisir à sa place.</li>"
-                        "<li>Programme de construction poursuivi, avec recours à la"
-                        " conception-réalisation et à la gestion déléguée là où elle"
-                        " livre plus vite et moins cher — la mesure se juge sur le"
-                        " coût complet publié, pas sur le principe.</li>"
+                        "<li>Programme porté à environ 3 000 places nettes par"
+                        " an — ce que coûtent 800 M€ à " + CHIFFRES["cout_place"].valeur
+                        + " la place —, avec recours à la conception-réalisation et à"
+                        " la gestion déléguée là où elle livre plus vite et moins"
+                        " cher. La mesure se juge sur le coût complet publié"
+                        " opération par opération, pas sur le principe.</li>"
                         "</ul>"
                     ),
                 ),

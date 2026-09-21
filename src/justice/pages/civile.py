@@ -7,9 +7,9 @@ from ..gabarit import (
 
 TITRE = "Justice civile et économique"
 DESCRIPTION = (
-    "Quatorze mois pour un jugement civil, seize de plus en appel, un litige"
-    " prud'homal sur deux frappé d'appel : l'état de la justice des contrats et"
-    " du quotidien, et la réforme libérale que nous proposons."
+    "Quatorze mois pour un jugement civil, seize de plus en appel, près de six"
+    " décisions prud'homales sur dix frappées d'appel : l'état de la justice des"
+    " contrats et du quotidien, et la réforme libérale que nous proposons."
 )
 
 
