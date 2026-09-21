@@ -75,7 +75,7 @@ SOURCES: dict[str, Source] = {
     ),
     "calcul": Source(
         "Calcul du site",
-        "https://github.com/g-pliberal/justice",
+        "https://github.com/g-pliberal/Justice",
         "Une division, faite ici, entre deux chiffres publiés ailleurs. Le"
         " calcul est écrit dans le code et la précision dit lesquels.",
     ),

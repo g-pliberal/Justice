@@ -17,7 +17,7 @@ from pathlib import Path
 #: La racine du dépôt, d'où sont lus les pictogrammes.
 RACINE = Path(__file__).resolve().parents[2]
 
-DEPOT = "https://github.com/g-pliberal/justice"
+DEPOT = "https://github.com/g-pliberal/Justice"
 SITE_PARENT = "https://partiliberalfrancais.fr"
 SITE_RETRAITE = "https://g-pliberal.github.io/retraitecomptenotionelle/"
 NOM_DU_SITE = "Justice"

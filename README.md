@@ -6,7 +6,7 @@ la proposition ne sont jamais mêlés dans un même paragraphe — le premier se
 vérifie, la seconde se discute.
 
 Le site est en ligne à la racine de ce dépôt, servi par GitHub Pages :
-**<https://g-pliberal.github.io/justice/>**
+**<https://g-pliberal.github.io/Justice/>**
 
 ## Ce que contient le site
 
