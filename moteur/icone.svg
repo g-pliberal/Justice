@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Justice">
+  <!-- L'icône du site : le carré de la charte, et le tracé « scale » de Lucide
+       (ISC, voir icones/LICENSE), posé sur la grille de 24 au trait de 2. Le
+       site frère porte une courbe qui monte ; celui-ci porte la balance, et
+       les deux tiennent dans le même carré. -->
+  <rect width="32" height="32" rx="7" fill="#0b3d3a"/>
+  <g transform="translate(4 4)" fill="none" stroke="#e9c53d" stroke-width="2"
+     stroke-linecap="round" stroke-linejoin="round">
+    <path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/>
+    <path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/>
+    <path d="M7 21h10"/>
+    <path d="M12 3v18"/>
+    <path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/>
+  </g>
+</svg>

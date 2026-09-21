@@ -1,0 +1,23 @@
+# Les vérifications du site, à chaque poussée. Elles tiennent en une commande
+# et n'ont aucune dépendance : c'est voulu — un dépôt de programme politique
+# doit pouvoir être repris par quelqu'un qui n'installe rien.
+name: Vérifier le site
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+jobs:
+  verifier:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      # Le HTML publié doit être celui que produit le code publié : le test
+      # « les fichiers sont à jour » échoue si la construction n'a pas été
+      # relancée après une modification du texte.
+      - name: Vérifications
+        run: python3 tests/verifier.py
